@@ -26,19 +26,18 @@ app.get('/gif/*', function(req, res) {
       var image = JSON.parse(body).data[0].images.original;
 
       http.get(image.url).on('response', function (response) {
-        res.writeHead(200,{'Content-Type':'image/GIF'});
+        res.writeHead(200,{'Content-Type':'image/gif'});
         response.on('data', function(chunk) {
           res.write(chunk);
         });
         response.on('end', function() {
-          res.end(img, 'binary');
+          res.end(image.url);
         });
       });
     } catch (err) {
-      res.redirect('http://media1.giphy.com/media/fdcibA8CVjFFS/giphy.gif');
-      // res.writeHead(200,{'Content-Type':'image/GIF'});
-      // var img = fs.readFileSync(__dirname + '/public/default.gif');
-      // res.end(img, 'binary');
+      res.writeHead(200,{'Content-Type':'image/GIF'});
+      var img = fs.readFileSync(__dirname + '/public/default.gif');
+      res.end(img, 'binary');
     }
   });
 });
