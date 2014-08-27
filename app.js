@@ -43,7 +43,7 @@ app.get('/*', function(req, res) {
       if (gif === true) {
         //res.writeHead(301,{'Content-Type':'text/html', 'Location': image.url});
         http.get(image.url).on('response', function (response) {
-          response.writeHead(200,{'Content-Type':'image/gif'});
+          res.writeHead(200,{'Content-Type':'image/gif'});
           response.on('data', function(chunk) {
             res.write(chunk);
           });
