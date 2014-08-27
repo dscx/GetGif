@@ -18,14 +18,29 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/gif/*', function(req, res) {
   var path = url.parse(req.url).pathname;
-  var terms = path.substring(5).split("/").join("+");
+  path = path.substring(5);
+  var terms = path.split("/").join("+");
+  terms = terms.split('.');
+  if (terms[1] === 'gif') {
+    var gif = true;
+    terms = terms[0];
+  } else {
+    var gif = false;
+    terms = terms[0];
+  }
   var terms = "http://api.giphy.com/v1/gifs/search?q=" + terms + "&api_key=dc6zaTOxFJmzC&limit=1";
-
+  
   request(terms, function(error, response, body) {
     try {
       var image = JSON.parse(body).data[0].images.original;
       // http.get(image.url).on('response', function (response) {
-      res.writeHead(301,{'Content-Type':'text/html', 'Location': image.url});
+      if (gif === true) {
+        res.writeHead(301,{'Content-Type':'text/html', 'Location': image.url});
+      } else {
+        var loc = 'http://127.0.0.1:3000/gif/' + path + '.gif';
+        console.log('LOC', loc);
+        res.writeHead(301,{'Content-Type':'text/html', 'Location': loc});
+      }
       res.end();
       //   response.on('data', function(chunk) {
       //     res.write(chunk);
