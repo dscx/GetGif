@@ -37,7 +37,7 @@ app.get('/gif/*', function(req, res) {
       if (gif === true) {
         res.writeHead(301,{'Content-Type':'text/html', 'Location': image.url});
       } else {
-        var loc = 'http://127.0.0.1:3000/gif/' + path + '.gif';
+        var loc = 'getgif.azurewebsites.net/gif/' + path + '.gif';
         console.log('LOC', loc);
         res.writeHead(301,{'Content-Type':'text/html', 'Location': loc});
       }
