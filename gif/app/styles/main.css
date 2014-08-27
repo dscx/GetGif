@@ -77,17 +77,14 @@ body {
     border-bottom: 0;
   }
   #imgFormat{
-      width: 283.5px;
-      height: 165px;
-      opacity: 0.5;
-    -webkit-opacity: 0.5;
-    -moz-opacity: 0.5;
-    -webkit-transition: 0.2s ease;
-    -moz-transition: 0.2s ease
+    width: 283.5px;
+    height: 165px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: 0.2s ease-in-out;
   }
   #imgFormat:hover{
-    width: 425.25;
-    height: 247.5;
+    -webkit-transform: scale(1.33);
+    -moz-transform: scale(1.33);
     opacity: 1;
     -webkit-opacity: 1;
     -moz-opacity: 1;
