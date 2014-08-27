@@ -25,8 +25,10 @@ app.get('/gif/*', function(req, res) {
     try {
       var image = JSON.parse(body).data[0].images.original;
       console.log(image.url);
+      res.redirect(image.url);
       res.render('layout.ejs', {imageURL : image.url});
     } catch (err) {
+      res.redirect(image.url);
       res.render('layout.ejs', {imageURL : '/default.gif'});
     }
   });
