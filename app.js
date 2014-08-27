@@ -29,16 +29,16 @@ app.get('/gif/*', function(req, res) {
     var gif = false;
     terms = terms[0];
   }
-  var terms = "http://api.giphy.com/v1/gifs/search?q=" + terms + "&api_key=dc6zaTOxFJmzC&limit=1";
+  var stuff = "http://api.giphy.com/v1/gifs/search?q=" + terms + "&api_key=dc6zaTOxFJmzC&limit=1";
   
-  request(terms, function(error, response, body) {
+  request(stuff, function(error, response, body) {
     try {
       var image = JSON.parse(body).data[0].images.original;
       // http.get(image.url).on('response', function (response) {
       if (gif === true) {
         res.writeHead(301,{'Content-Type':'text/html', 'Location': image.url});
       } else {
-        var loc = 'getgif.azurewebsites.net/gif/' + path + '.gif';
+        var loc = 'http://getgif.azurewebsites.net/gif/' + path + '.gif';
         console.log('LOC', loc);
         res.writeHead(301,{'Content-Type':'text/html', 'Location': loc});
       }
