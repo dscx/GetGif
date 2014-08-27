@@ -24,12 +24,20 @@ app.get('/gif/*', function(req, res) {
   request(terms, function(error, response, body) {
     try {
       var image = JSON.parse(body).data[0].images.original;
-      var img = fs.readFileSync(image.url);
-      res.writeHead(200, {'Content-Type': 'image/gif'});
-      res.end(img, 'binary');
+
+      http.get(image.url).on('response', function (response) {
+        res.writeHead(200,{'Content-Type':'image/gif'});
+        response.on('data', function(chunk) {
+          res.write(chunk);
+        });
+        response.on('end', function() {
+          res.end();
+        });
+      });
+
     } catch (err) {
-      var img = fs.readFileSync('/default.gif');
-      res.writeHead(200, {'Content-Type': 'image/gif'});
+      res.writeHead(200,{'Content-Type':'image/gif'});
+      var img = fs.readFileSync(__dirname + '/public/default.gif');
       res.end(img, 'binary');
     }
   });
