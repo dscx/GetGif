@@ -31,6 +31,10 @@ app.get('/gif/*', function(req, res) {
   });
 });
 
+app.get('/', function(req, res) {
+  res.end("getgif");
+})
+
 
 
 
