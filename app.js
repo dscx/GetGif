@@ -24,10 +24,13 @@ app.get('/gif/*', function(req, res) {
   request(terms, function(error, response, body) {
     try {
       var image = JSON.parse(body).data[0].images.original;
-      req.pipe(request(image.url)).pipe(resp);
-      res.end();
+      var img = fs.readFileSync(image.url);
+      res.writeHead(200, {'Content-Type': 'image/gif'});
+      res.end(img, 'binary');
     } catch (err) {
-      res.redirect('/default.gif');
+      var img = fs.readFileSync('/default.gif');
+      res.writeHead(200, {'Content-Type': 'image/gif'});
+      res.end(img, 'binary');
     }
   });
 });
