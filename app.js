@@ -6,6 +6,7 @@ var request = require('request');
 var fs = require('fs');
 
 
+var port = process.env.PORT || 3000;
 
 
 var app = express();
@@ -38,6 +39,6 @@ app.get('/', function(req, res) {
 
 
 
-var server = app.listen(3000, function() {
-  console.log("Listening on port %d", server.address().port);
+var server = app.listen(port, function() {
+  console.log("Listening on port %d", port);
 });
