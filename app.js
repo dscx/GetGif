@@ -25,7 +25,8 @@ app.get('/gif/*', function(req, res) {
     try {
       var image = JSON.parse(body).data[0].images.original;
       console.log(image.url);
-      res.redirect(image.url);
+      res.write(image.url);
+      res.end();
     } catch (err) {
       res.redirect('/default.gif');
     }
