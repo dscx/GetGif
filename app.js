@@ -14,6 +14,12 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.use(express.static(__dirname + '/public'));
 
+app.get('/', function(req, res) {
+  res.end("<p>get gif</p>" +
+          '<p>example: http://getgif.azurewebsites.net/funny/dog.gif searches giphy for the tags "funny" and "dog" and returns the first gif it finds with those tags.</p>' +
+          '<p>The last term must end with ".gif" if you want to use it in hipchat.</p>'
+          );
+})
 
 
 app.get('/*', function(req, res) {
@@ -61,12 +67,6 @@ app.get('/*', function(req, res) {
   });
 });
 
-app.get('/', function(req, res) {
-  res.end("<p>get gif</p>" +
-          '<p>example: http://getgif.azurewebsites.net/funny/dog.gif searches giphy for the tags "funny" and "dog" and returns the first gif it finds with those tags.</p>' +
-          '<p>The last term must end with ".gif" if you want to use it in hipchat.</p>'
-          );
-})
 
 
 
