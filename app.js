@@ -25,7 +25,7 @@ app.get('/gif/*', function(req, res) {
     try {
       var image = JSON.parse(body).data[0].images.original;
       // http.get(image.url).on('response', function (response) {
-      res.writeHead(301,{'Content-Type':'image/gif', 'Location': image.url});
+      res.writeHead(301,{'Content-Type':'text/html', 'Location': image.url});
       res.end();
       //   response.on('data', function(chunk) {
       //     res.write(chunk);
@@ -35,7 +35,8 @@ app.get('/gif/*', function(req, res) {
       //   });
       // });
     } catch (err) {
-      res.writeHead(301,{'Content-Type':'image/gif', 'Location': 'http://media4.giphy.com/media/zLCiUWVfex7ji/giphy.gif'});
+      res.writeHead(301,{'Content-Type':'text/html', 'Location': 'http://media4.giphy.com/media/zLCiUWVfex7ji/giphy.gif'});
+      res.end();
       // res.writeHead(200,{'Content-Type':'image/GIF'});
       // var img = fs.readFileSync(__dirname + '/public/default.gif');
       // res.sendFile(__dirname + '/public/default.gif')
