@@ -1,9 +1,11 @@
 <div class="jumbotron">
 
 <!-- images to go here -->
-
-<img class="hoverable" ng-repeat="image in images" src={{image}}>
-
+<div>
+<a ng-repeat="image in images" href="{{image}}">
+<img id="imgFormat" src={{image}}>
+</a>
+</div>
 </div>
 
 
@@ -12,5 +14,4 @@
 <input type="submit" value="Get Gifs!">
 </form>
 <br>
-
 

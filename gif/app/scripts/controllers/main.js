@@ -13,6 +13,8 @@ angular.module('gifApp')
       'https://media.giphy.com/media/5xtDarFy9hJzFnau6KQ/giphy.gif',
       'https://media.giphy.com/media/ToMjGpwKIkAhewfNL3y/giphy.gif',
       'http://media.giphy.com/media/f1Gpa9nYrXLfa/giphy.gif',
-      'http://media1.giphy.com/media/JAXV2X8uVt9XG/200.gif'
+      'http://media1.giphy.com/media/JAXV2X8uVt9XG/200.gif',
+      'http://media0.giphy.com/media/MAOCuudFBswRq/200.gif',
+      'http://media1.giphy.com/media/6KGkOwViSUsgg/200.gif'
     ];
   });

@@ -76,11 +76,20 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
-  .imgFormat{
-
-  }
-  .hoverable{
+  #imgFormat{
       width: 283.5px;
       height: 165px;
+      opacity: 0.5;
+    -webkit-opacity: 0.5;
+    -moz-opacity: 0.5;
+    -webkit-transition: 0.2s ease;
+    -moz-transition: 0.2s ease
+  }
+  #imgFormat:hover{
+    width: 425.25;
+    height: 247.5;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
   }
 }
