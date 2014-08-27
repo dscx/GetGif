@@ -17,6 +17,7 @@ app.use(express.static(__dirname + '/public'));
 
 
 app.get('/gif/*', function(req, res) {
+  var gif = false;
   var path = url.parse(req.url).pathname;
   path = path.substring(5);
   var terms = path.split("/").join("+");
