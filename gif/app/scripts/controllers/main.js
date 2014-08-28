@@ -25,11 +25,18 @@ angular.module('gifApp')
       $scope.submitted = true;
       $http.post('/', [$scope.val]).success(function(results){
         console.log(results, "results");
-        for (var i = 0; i < 6; i++) {
-        var rando = Math.floor(Math.random() * results.giphy.length);
-        console.log(rando);
-          $scope.images.push(results.giphy[rando]);
-        };
+        console.log([$scope.val])
+        if($scope.val === undefined){
+          //run random function
+          alert("enter some text!");
+        }
+        else {
+          for (var i = 0; i < 6; i++) {
+            var rando = Math.floor(Math.random() * results.giphy.length);
+            console.log(rando);
+             $scope.images.push(results.giphy[rando]);
+          }
+        }
         
       });
       
