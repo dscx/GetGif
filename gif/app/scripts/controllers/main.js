@@ -24,6 +24,7 @@ angular.module('gifApp')
       $scope.images = [];
       $scope.submitted = true;
       $http.post('/', [$scope.val], function(results){
+        console.log(results, "results");
         for (var i = 0; i < results.giphy.length; i++) {
           $scope.images.push(results.giphy[i]);
         };
