@@ -4,10 +4,8 @@
       <img class="img-thumbnail" id="trendImg" src={{image}}>
     </a> -->
 </div>
-    <a ng-repeat="trend in trends" href="{{trend}}">
-      <button type="button" ng-click="thisTrend()">{{trend}}</button>
-      </a>
+      <button type="button" ng-repeat="trend in trends" href="{{trend}}" ng-click="thisTrend()" ng-model="val">{{trend}}</button><span ng-repeat-end></span>
 <script>
 //load set of 10 trending topics in 
-// whatsTrend();
+//trendList()
 </script>
