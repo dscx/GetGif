@@ -9,8 +9,9 @@
 </div>
 
 
-<form style="text-align: center">
-<input type="text" placeholder="add some keywords here.." size=60>
-<input type="submit" value="Get Gifs!">
+<form class="input" style="text-align: center">
+<input id="inputBox" type="text" ng-submit="search" ng-model="val" placeholder="add some keywords here.." size=60 required>
+
+<button ng-click="submit()">Get Gifs!</button>
 </form>
 <br>
