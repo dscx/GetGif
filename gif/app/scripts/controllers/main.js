@@ -9,47 +9,52 @@
  */
 angular.module('gifApp')
   .controller('MainCtrl', function ($scope, $http) {
-    // $scope.images = [
-    //   'https://media.giphy.com/media/5xtDarFy9hJzFnau6KQ/giphy.gif',
-    //   'https://media.giphy.com/media/ToMjGpwKIkAhewfNL3y/giphy.gif',
-    //   'http://media.giphy.com/media/f1Gpa9nYrXLfa/giphy.gif',
-    //   'http://media1.giphy.com/media/JAXV2X8uVt9XG/200.gif',
-    //   'http://media0.giphy.com/media/MAOCuudFBswRq/200.gif',
-    //   'http://media1.giphy.com/media/6KGkOwViSUsgg/200.gif'
-    // ];
+  
     $scope.images = [];
+    $scope.last = null;
 
-    //$scope.val;
-    $scope.submit = function(form){
+  $scope.submit = function(form){
+    $scope.submitted = true;
+    if($scope.last === $scope.val){
+      return;
+    }
+    else { 
       $scope.images = [];
-      $scope.submitted = true;
       $http.post('/', [$scope.val]).success(function(results){
-        console.log(results, "results");
-        console.log([$scope.val])
         if($scope.val === undefined){
-          //run random function
-          alert("enter some text!");
+          //$scope.loadRandom();
         }
         else {
-          for (var i = 0; i < 6; i++) {
+          for (var i = 0; i < 24; i++) {
             var rando = Math.floor(Math.random() * results.giphy.length);
             console.log(rando);
-             $scope.images.push(results.giphy[rando]);
+            $scope.images.push(results.giphy[rando]);
           }
-        }
-        
-      });
-      
-    };
-    $scope.loadPopular = function(){
-      $scope.images = [];
-      $http.post('/popular').success(function(results){
-        for (var j = 0; j < Things.length; j++) {
-          //make this work with imgur too
-          var rando = Math.floor(Math.random() * results.giphylength); 
-             $scope.images.push(results.giphy[rando]);
+          $scope.last = $scope.val;
         }
       });
     }
+  };
+
+  $scope.loadPopular = function(){
+    $scope.images = [];
+    $http.get('/popular').success(function(results){
+      for (var j = 0; j < results.length; j++) {
+        //make this work with imgur too
+        var rando = Math.floor(Math.random() * results.giphylength); 
+           $scope.images.push(results.giphy[rando]);
+      }
+    });
+  };
+
+  $scope.loadRandom = function(){
+    $scope.images = [];
+    $http.get('/random').success(function(results){
+      var rando = Math.floor(Math.random() * results.giphylength); 
+        $scope.images.push(results.giphy[rando]);
+    });
+  };
+
+  $scope.loadPopular();
 
   });
