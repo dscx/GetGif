@@ -41,7 +41,7 @@ angular.module('gifApp')
     $http.get('/popular').success(function(results){
       for (var j = 0; j < results.length; j++) {
         //make this work with imgur too
-        var rando = Math.floor(Math.random() * results.giphylength); 
+        var rando = Math.floor(Math.random() * results.giphy.length); 
            $scope.images.push(results.giphy[rando]);
       }
     });
@@ -50,7 +50,7 @@ angular.module('gifApp')
   $scope.loadRandom = function(){
     $scope.images = [];
     $http.get('/random').success(function(results){
-      var rando = Math.floor(Math.random() * results.giphylength); 
+      var rando = Math.floor(Math.random() * results.giphy.length); 
         $scope.images.push(results.giphy[rando]);
     });
   };
