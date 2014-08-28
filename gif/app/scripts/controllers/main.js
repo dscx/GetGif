@@ -23,14 +23,15 @@ angular.module('gifApp')
     $scope.submit = function(form){
       $scope.images = [];
       $scope.submitted = true;
-      $http.post('/', [$scope.val], function(results){
+      $http.post('/', [$scope.val]).success(function(results){
         console.log(results, "results");
-        for (var i = 0; i < results.giphy.length; i++) {
-          $scope.images.push(results.giphy[i]);
+        for (var i = 0; i < 6; i++) {
+        var rando = Math.floor(Math.random() * results.giphy.length);
+        console.log(rando);
+          $scope.images.push(results.giphy[rando]);
         };
-      })
-      
-      //getLinks();
+        
+      });
       
     }
   });

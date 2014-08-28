@@ -41,7 +41,7 @@ app.post('/', function(req, res){
   // //Go get the imgur list
   var completeResponse = {};
 
-  var giphyUrl = "http://api.giphy.com/v1/gifs/search?q=" + giphyTerms + "&api_key=dc6zaTOxFJmzC&limit=5";
+  var giphyUrl = "http://api.giphy.com/v1/gifs/search?q=" + giphyTerms + "&api_key=dc6zaTOxFJmzC";
   console.log(giphyUrl);
   request(giphyUrl, function (error, response, body) {
   if (!error && response.statusCode == 200) {
