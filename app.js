@@ -85,7 +85,7 @@ var getTrendGifs = function (searchTerm, callback){
           var tempObject = JSON.parse(body).data[0];
           // console.log(tempObject.images);
           // console.log(trends[k], 'trends k');
-          trendsObject[searchTerm] = JSON.parse(body).data[0].images.original.url;
+          trendsObject[searchTerm] = [JSON.parse(body).data[0].images.original.url];
           console.log(trendsObject);
           // counter++;
           // if (counter >= trends.length - 1){
