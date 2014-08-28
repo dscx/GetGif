@@ -156,7 +156,7 @@ app.post('/', function(req, res){
   var giphyTerms = req.body;
   var completeResponse = {};
 
-  var giphyUrl = "http://api.giphy.com/v1/gifs/search?q=" + giphyTerms + "&api_key=dc6zaTOxFJmzC";
+  var giphyUrl = "http://api.giphy.com/v1/gifs/search?q=" + giphyTerms + "&api_key=dc6zaTOxFJmzC&limit=100";
   console.log(giphyUrl);
   request(giphyUrl, function (error, response, body) {
   if (!error && response.statusCode == 200) {
