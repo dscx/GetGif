@@ -88,16 +88,5 @@ body {
     -webkit-opacity: 1;
     -moz-opacity: 1;
   }
-  #trendImg{
-    width: 283.5px;
-    height: 165px;
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: 0.2s ease-in-out;
-  }
-  #trendImg:hover .text{
-    opacity:0.6;
-    -webkit-opacity: 0.6;
-    -moz-opacity: 0.6;
-  }
    
 }
