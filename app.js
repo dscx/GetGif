@@ -9,8 +9,9 @@ var config = require('./config/config.js');
 
 
 var port = process.env.PORT || 3000;
-
-
+var trendCounter = 0;
+var trendStop;
+var trendsObject = {};
 var app = express();
 console.log(config.twitterKey);
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,6 +29,90 @@ app.get('/', function(req, res) {
   //         );
    // res.sendFile('/uploads/' + uid + '/' + file);
     res.sendFile(__dirname + '/gif/app/index.html');
+});
+
+
+app.get('/twitter', function(req, res){
+
+var options = {
+    url: 'https://api.twitter.com/1.1/trends/place.json?id=23424977',
+    headers: {
+        'Authorization': 'Bearer ' + config.twitterKey
+    }
+};
+
+request( options, function (error, response, body){
+  console.log(error);
+  var trendsResult = JSON.parse(body)[0].trends;
+  var trends = [];
+  for ( var i = 0; i < trendsResult.length; i++){
+    trends.push(trendsResult[i].name);
+  }
+  trendStop = trendsResult.length - 1;
+    console.log(trends);
+
+    //request images for trends
+    var counter = 0;
+    for ( var k = 0; k < trends.length; k++){
+      searchTerm = trends[k];
+      searchTerm = searchTerm.split('');
+      for ( var l = 0; l < searchTerm.length; l++){
+        if ( searchTerm[l] === '#'){
+          searchTerm[l] = '';
+        }
+      }
+
+      var objectKey = trends[k];
+
+      searchTerm = searchTerm.join('');
+      console.log(trends[k], 'trends k');
+      
+        // console.log(giphyUrl);
+        getTrendGifs(searchTerm, function (){
+          res.send(trendsObject);
+        });
+    }
+  }
+
+  );
+
+var getTrendGifs = function (searchTerm, callback){
+  var giphyUrl = "http://api.giphy.com/v1/gifs/search?q=" + searchTerm + "&api_key=dc6zaTOxFJmzC";
+        request(giphyUrl, function (error, response, body) {
+          if(JSON.parse(body).data[0]){
+
+          // console.log(JSON.parse(body).data[0].images);
+          var tempObject = JSON.parse(body).data[0];
+          // console.log(tempObject.images);
+          // console.log(trends[k], 'trends k');
+          trendsObject[searchTerm] = JSON.parse(body).data[0].images.original.url;
+          console.log(trendsObject);
+          // counter++;
+          // if (counter >= trends.length - 1){
+          //   console.log('alll done');
+          // }
+          trendCounter++;
+            if (trendCounter >= trendStop){
+              callback();
+              trendCounter = 0;
+            }
+
+          }
+          else{
+            trendCounter++;
+            if (trendCounter >= trendStop){
+              callback();
+              trendCounter = 0;
+            }
+          }
+        });
+
+};
+
+
+// "Bearer " + twitterKey
+
+
 });
 
 app.post('/', function(req, res){
