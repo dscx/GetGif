@@ -32,9 +32,9 @@ app.post('/', function(req, res){
 
   console.log(req.body);
 
-  var imgurTerms = req.body.imgur;
-  console.log(imgurTerms);
-   var giphyTerms = req.body.giphy.join('+');
+  // var imgurTerms = req.body.imgu;
+  // console.log(imgurTerms);
+   var giphyTerms = req.body;
   // var imgurDone = false;
   // var giphyDone = false;
 
