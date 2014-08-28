@@ -40,5 +40,16 @@ angular.module('gifApp')
         
       });
       
+    };
+    $scope.loadPopular = function(){
+      $scope.images = [];
+      $http.post('/popular').success(function(results){
+        for (var j = 0; j < Things.length; j++) {
+          //make this work with imgur too
+          var rando = Math.floor(Math.random() * results.giphylength); 
+             $scope.images.push(results.giphy[rando]);
+        }
+      });
     }
+
   });
