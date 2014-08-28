@@ -88,5 +88,11 @@ body {
     -webkit-opacity: 1;
     -moz-opacity: 1;
   }
-   
+ #preview{
+    width: 283.5px;
+    height: 165px;
+    opacity: 0.25;
+    -webkit-opacity: 0.25;
+    -moz-opacity: 0.25;
+ }  
 }

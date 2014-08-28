@@ -1,10 +1,16 @@
 <header><h3 style="text-align: center">what's #trending</h3></header>
 <div class="jumbotron">
+
     <a ng-repeat="image in trendingImages track by $index" href="{{image}}">
       <img class="img-thumbnail" id="imgFormat" src={{image}}>
     </a>
-</div>
+
+    <div>
+      <img ng-repeat="image in sampleImages" class="img-thumbnail" id="preview" src={{image}}>
+    </div>
+
   <div class="panel-heading">
       <span ng-repeat="(key, value) in trends"><button type="button" ng-click="thisTrend(key)">{{key}}</button><span ng-repeat-end></span>
       </span>
   </div>
+</div>
