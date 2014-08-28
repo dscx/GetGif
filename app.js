@@ -51,12 +51,20 @@ var options = {
 
 request( options, function (error, response, body){
   console.log(error);
-  // console.log(response);
+  console.log(body);
+
+  if (JSON.parse(body).hasOwnProperty('errors')){
+    console.log(body);
+    // res.send(500);
+    return; 
+  }
   var trendsResult = JSON.parse(body)[0].trends;
+
   
-  for ( var i = 0; i < trendsResult.length; i++){
+  for ( var i = 0; i < trendsResult.length; i++){ 
     trends.push(trendsResult[i].name);
   }
+  console.log(trends);
 
   trendStop = trendsResult.length - 1;
     // console.log(trends);
@@ -90,6 +98,8 @@ request( options, function (error, response, body){
 
 var getTrendGifs = function (searchTerm, callback){
   // console.log(callback);
+  searchTerm = searchTerm.split(' ').join('+');
+  console.log(searchTerm);
   var giphyUrl = "http://api.giphy.com/v1/gifs/search?q=" + searchTerm + "&api_key=dc6zaTOxFJmzC";
         request(giphyUrl, function (error, response, body) {
           // console.log(body);
@@ -97,6 +107,7 @@ var getTrendGifs = function (searchTerm, callback){
 
           // var tempObject = JSON.parse(body).data[0];
           // trendsObject[searchTerm] = [JSON.parse(body).data[0].images.original.url];
+          searchTerm = searchTerm.split('+').join(' ');
           trendsObject[searchTerm] = JSON.parse(body).data;
           trendCounter++;
             if (trendCounter >= trendStop){
