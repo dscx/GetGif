@@ -7,7 +7,7 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var config = require('./config/config.js');
 
-
+var twitterResponse = {};
 var port = process.env.PORT || 3000;
 var trendCounter = 0;
 var trendStop;
@@ -31,28 +31,38 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/gif/app/index.html');
 });
 
+var trends = [];
 
 app.get('/twitter', function(req, res){
+  res.send(twitterResponse);
+  }
+  );
 
+
+var getTrends = function(){
+console.log('getTrends');
 var options = {
     url: 'https://api.twitter.com/1.1/trends/place.json?id=23424977',
     headers: {
         'Authorization': 'Bearer ' + config.twitterKey
     }
-};
+  };
+
 
 request( options, function (error, response, body){
   console.log(error);
+  // console.log(response);
   var trendsResult = JSON.parse(body)[0].trends;
-  var trends = [];
+  
   for ( var i = 0; i < trendsResult.length; i++){
     trends.push(trendsResult[i].name);
   }
+
   trendStop = trendsResult.length - 1;
-    console.log(trends);
+    // console.log(trends);
 
     //request images for trends
-    var counter = 0;
+  var counter = 0;
     for ( var k = 0; k < trends.length; k++){
       searchTerm = trends[k];
       searchTerm = searchTerm.split('');
@@ -65,34 +75,32 @@ request( options, function (error, response, body){
       var objectKey = trends[k];
 
       searchTerm = searchTerm.join('');
-      console.log(trends[k], 'trends k');
+      // console.log(trends[k], 'trends k');
       
         // console.log(giphyUrl);
         getTrendGifs(searchTerm, function (){
-          res.send(trendsObject);
-        });
-    }
+          // res.send(trendsObject);
+          twitterResponse = parseGiphyObject(trendsObject);
+          // console.log(twitterResponse);
+        }); 
+    
   }
-
-  );
+}); 
+};
 
 var getTrendGifs = function (searchTerm, callback){
+  // console.log(callback);
   var giphyUrl = "http://api.giphy.com/v1/gifs/search?q=" + searchTerm + "&api_key=dc6zaTOxFJmzC";
         request(giphyUrl, function (error, response, body) {
+          // console.log(body);
           if(JSON.parse(body).data[0]){
 
-          // console.log(JSON.parse(body).data[0].images);
-          var tempObject = JSON.parse(body).data[0];
-          // console.log(tempObject.images);
-          // console.log(trends[k], 'trends k');
-          trendsObject[searchTerm] = [JSON.parse(body).data[0].images.original.url];
-          console.log(trendsObject);
-          // counter++;
-          // if (counter >= trends.length - 1){
-          //   console.log('alll done');
-          // }
+          // var tempObject = JSON.parse(body).data[0];
+          // trendsObject[searchTerm] = [JSON.parse(body).data[0].images.original.url];
+          trendsObject[searchTerm] = JSON.parse(body).data;
           trendCounter++;
             if (trendCounter >= trendStop){
+              console.log(trendCounter, 'line 103');
               callback();
               trendCounter = 0;
             }
@@ -100,7 +108,9 @@ var getTrendGifs = function (searchTerm, callback){
           }
           else{
             trendCounter++;
+
             if (trendCounter >= trendStop){
+              console.log(trendCounter, 'line 113');
               callback();
               trendCounter = 0;
             }
@@ -110,22 +120,40 @@ var getTrendGifs = function (searchTerm, callback){
 };
 
 
-// "Bearer " + twitterKey
+var parseGiphyObject = function (obj){
+  var tempObj = {};
+
+  for ( var key in obj ){
+    // console.log(obj[key][0].type, key);
+    tempObj[key] = [];
+      var topic = obj[key];
+    for ( var i = 0; i < obj[key].length; i++){
+      // console.log(i, ' i');
+      tempObj[key].push(topic[i].images['original']['url']);
+    }
+    // console.log(obj[key][0].images.original);
+  //   tempObj[key] = [];
+  //   console.log(key, 'key');
+  //   // console.log(obj[key].length);
+  //   for ( var i = 0; i < obj[key].length; i++){
+  //      // console.log(obj[key][i].images.orginal);
+  //      // if ( obj[key][i].images.hasOwnProperty('orginal')){
+
+  //     tempObj[key].push(obj[key]);
+  //      // }
+  //   }
+  //   // console.log(tempObj);
+  }
+    return tempObj;
+
+};
 
 
-});
+// });
 
 app.post('/', function(req, res){
 
-  console.log(req.body);
-
-  // var imgurTerms = req.body.imgu;
-  // console.log(imgurTerms);
-   var giphyTerms = req.body;
-  // var imgurDone = false;
-  // var giphyDone = false;
-
-  // //Go get the imgur list
+  var giphyTerms = req.body;
   var completeResponse = {};
 
   var giphyUrl = "http://api.giphy.com/v1/gifs/search?q=" + giphyTerms + "&api_key=dc6zaTOxFJmzC";
@@ -140,58 +168,15 @@ app.post('/', function(req, res){
     completeResponse.giphy = giphyUrls;
     res.send(completeResponse);
   }
-  });
-
+   
+});
 });
 
 
 
-// app.get('/*', function(req, res) {
-//   var gif = false;
-//   var path = url.parse(req.url).pathname;
-//   path = path.substring(5);
-//   var terms = path.split("/").join("+");
-//   terms = terms.split('.');
-//   if (terms[1] === 'gif') {
-//     var gif = true;
-//     terms = terms[0];
-//   } else {
-//     var gif = false;
-//     terms = terms[0];
-//   }
-//   var stuff = "http://api.giphy.com/v1/gifs/search?q=" + terms + "&api_key=dc6zaTOxFJmzC&limit=5";
-  
-//   request(stuff, function(error, response, body) {
-//     try {
-//       var image = JSON.parse(body).data[0].images.original;
-//       // http.get(image.url).on('response', function (response) {
-//       if (gif === true) {
-//         res.writeHead(301,{'Content-Type':'text/html', 'Location': image.url});
-//       } else {
-//         var loc = 'http://getgif.azurewebsites.net/gif/' + path + '.gif';
-//         console.log('LOC', loc);
-//         res.writeHead(301,{'Content-Type':'text/html', 'Location': loc});
-//       }
-//       res.end();
-//       //   response.on('data', function(chunk) {
-//       //     res.write(chunk);
-//       //   });
-//       //   response.on('end', function() {
-//       //     res.end();
-//       //   });
-//       // });
-//     } catch (err) {
-//       res.writeHead(301,{'Content-Type':'text/html', 'Location': 'http://media4.giphy.com/media/zLCiUWVfex7ji/giphy.gif'});
-//       res.end();
-//       // res.writeHead(200,{'Content-Type':'image/GIF'});
-//       // var img = fs.readFileSync(__dirname + '/public/default.gif');
-//       // res.sendFile(__dirname + '/public/default.gif')
-//       // res.end(img, 'binary');
-//     }
-//   });
-// });
+getTrends();
 
-
+setInterval(getTrends, 1000000);
 
 
 
