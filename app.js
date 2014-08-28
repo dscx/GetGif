@@ -5,12 +5,14 @@ var url = require('url');
 var request = require('request');
 var fs = require('fs');
 var bodyParser = require('body-parser');
+var config = require('./config/config.js');
 
 
 var port = process.env.PORT || 3000;
 
 
 var app = express();
+console.log(config.twitterKey);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
