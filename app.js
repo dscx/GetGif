@@ -172,6 +172,24 @@ app.post('/', function(req, res){
 });
 });
 
+app.get('/popular', function(req, res){
+  var completeResponse = {};
+  var url = 'http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=100';
+  request(url, function(error, response, body){
+    if (!error && response.statusCode == 200) {
+      var giphyUrls = [];
+      for ( var i = 0; i < JSON.parse(body).data.length; i++){
+        giphyUrls.push(JSON.parse(body).data[i].images.original.url);
+      }
+    }
+    completeResponse.giphy = giphyUrls;
+    res.send(completeResponse);
+  });
+
+
+
+});
+
 
 
 getTrends();
