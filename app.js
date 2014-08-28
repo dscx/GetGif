@@ -15,14 +15,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
-app.use(express.static(__dirname + '/public'));
-
+app.use('/bower_components/',express.static(__dirname + '/gif/bower_components'));
+app.use('/',express.static(__dirname + '/gif/app'));
+console.log(__dirname+ '/gif', 'dirname');
+// app.use('/img',express.static(path.join(__dirname, 'public/images')));
 app.get('/', function(req, res) {
-  res.end("<p>get gif</p>" +
-          '<p>example: http://getgif.azurewebsites.net/gif/funny/dog.gif searches giphy for the tags "funny" and "dog" and returns the first gif it finds with those tags.</p>' +
-          '<p>The last term must end with ".gif" if you want to use it in hipchat.</p>'
-          );
-})
+  // res.end("<p>get gif</p>" +
+  //         '<p>example: http://getgif.azurewebsites.net/gif/funny/dog.gif searches giphy for the tags "funny" and "dog" and returns the first gif it finds with those tags.</p>' +
+  //         '<p>The last term must end with ".gif" if you want to use it in hipchat.</p>'
+  //         );
+   // res.sendFile('/uploads/' + uid + '/' + file);
+    res.sendFile(__dirname + '/gif/app/index.html');
+});
 
 app.post('/', function(req, res){
 
