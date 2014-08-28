@@ -76,11 +76,17 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
-  .imgFormat{
-
+  #imgFormat{
+    width: 283.5px;
+    height: 165px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: 0.2s ease-in-out;
   }
-  .hoverable{
-      width: 283.5px;
-      height: 165px;
+  #imgFormat:hover{
+    -webkit-transform: scale(1.33);
+    -moz-transform: scale(1.33);
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
   }
 }
