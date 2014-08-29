@@ -92,8 +92,8 @@ body {
     width: 283.5px;
     height: 165px;
     margin: 0;
-    opacity: 0.25;
+  /*  opacity: 0.25;
     -webkit-opacity: 0.25;
-    -moz-opacity: 0.25;
+    -moz-opacity: 0.25;*/
  }  
 }
