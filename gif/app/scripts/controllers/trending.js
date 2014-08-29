@@ -18,30 +18,23 @@ angular.module('gifApp')
 
     $scope.thisTrend = function(clicked){
     $scope.trendLinks(clicked);
-    //should remove sample images
     $scope.sampleImages = [];
     $scope.sampleImageText = {};
     };
 
     $scope.trendLinks = function(trend){
-      console.log(trend);
       $scope.trendingImages = [];
       $scope.trendingImages = $scope.trends[trend]; 
+      console.log($scope.trendingImages, "new set");
     };
 
     $scope.showSample = function(data){
       $scope.sampleImages = [];
-      //should select random item from each trend array
       for(var key in data){
-      var rando = Math.floor(Math.random() * data[key].length);
-      //should build new array in order of trends
-      $scope.sampleImageText = data;
-      // $scope.sampleImageText[key] = [];
-      $scope.sampleImageText[key] = data[key][rando];
-
-      //$scope.sampleImages.push(data[key][rando]);
-      //only push one random item
-      console.log($scope.sampleImageText);
+      // var rando = Math.floor(Math.random() * data[key].length);
+      // $scope.sampleImageText = data;
+      $scope.sampleImageText[key] = data[key][0];
+      console.log($scope.sampleImageText, 'line37');
       }
     };
 
@@ -49,6 +42,7 @@ angular.module('gifApp')
       $scope.trends =[];
       $http.get('/twitter').success(function(results){
         $scope.trends = results;
+        console.log(results, 'original result');
       $scope.showSample(results);
       });
     };
