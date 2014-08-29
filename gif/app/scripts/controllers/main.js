@@ -39,8 +39,7 @@ angular.module('gifApp')
 
   $scope.loadMore = function(){
     $scope.images = [];
-    consooe.log('more!')
-    for (var k = 0; k < 8; k++) {
+    for (var k = 0; k < 24; k++) {
         var rando = Math.floor(Math.random() * $scope.cache.giphy.length); 
         $scope.images.push($scope.cache.giphy[rando]);
     };
