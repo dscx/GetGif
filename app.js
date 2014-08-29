@@ -26,7 +26,7 @@ else{
   var twitterKey = process.env.TWITTER_KEY;
 }
 // var auth = require('http-auth');
-
+console.log(__dirname, 'diranme');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
