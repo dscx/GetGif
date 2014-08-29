@@ -42,7 +42,7 @@ angular.module('gifApp')
 
       //only push one random item
       }
-      console.log($scope.sampleImageText)
+      console.log($scope.sampleImageText);
       console.log() 
     };
 

@@ -12,6 +12,7 @@ angular.module('gifApp')
   
     $scope.images = [];
     $scope.last = null;
+    $scope.cache = null;
 
   $scope.submit = function(form){
     $scope.submitted = true;
@@ -36,12 +37,22 @@ angular.module('gifApp')
     }
   };
 
+  $scope.loadMore = function(){
+    $scope.images = [];
+    consooe.log('more!')
+    for (var k = 0; k < 8; k++) {
+        var rando = Math.floor(Math.random() * $scope.cache.giphy.length); 
+        $scope.images.push($scope.cache.giphy[rando]);
+    };
+  };
+
   $scope.loadPopular = function(){
     $scope.images = [];
     $http.get('/popular').success(function(results){
-      for (var j = 0; j < results.giphy.length; j++) {
+      $scope.cache = results;
+      for (var j = 0; j < 8; j++) {
         var rando = Math.floor(Math.random() * results.giphy.length); 
-           $scope.images.push(results.giphy[rando]);
+        $scope.images.push(results.giphy[rando]);
       }
     });
   };
