@@ -48,7 +48,8 @@ angular.module('gifApp')
     $scope.trendList = function(){
       $scope.trends =[];
       $http.get('/twitter').success(function(results){
-        $scope.trends = results;
+        console.log(results);
+        // $scope.trends = results;
       $scope.showSample(results);
       });
     };

@@ -19,7 +19,12 @@ var trendStop;
 var trendsObject = {};
 var app = express();
 var trends = [];
-var twitterKey = process.env.TWITTER_KEY || config.twitterKey;
+if ( !process.env.NODE_ENV){
+  var twitterKey = config.twitterKey;
+}
+else{
+  var twitterKey = process.env.TWITTER_KEY;
+}
 // var auth = require('http-auth');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -76,6 +81,7 @@ app.get('/popular', function(req, res){
       }
     }
     completeResponse.giphy = giphyUrls;
+
     res.send(completeResponse);
   });
 });
@@ -146,7 +152,7 @@ var getTrendGifs = function (searchTerm, callback){
 
           // var tempObject = JSON.parse(body).data[0];
           // trendsObject[searchTerm] = [JSON.parse(body).data[0].images.original.url];
-          searchTerm = searchTerm.split('+').join(' ');
+          // searchTerm = searchTerm.split('+').join(' ');
           trendsObject[searchTerm] = JSON.parse(body).data;
           trendCounter++;
             if (trendCounter >= trendStop){
@@ -178,7 +184,14 @@ var getToken = function(){
 
   var formData = querystring.stringify(form);
   var contentLength = formData.length;
-  var auth = process.env.BASIC_AUTH || config.basicAuth;
+if ( !process.env.NODE_ENV){
+  var auth =  config.basicAuth;
+}
+else{
+  var auth = process.env.BASIC_AUTH;
+}
+
+  // var auth = process.env.BASIC_AUTH || config.basicAuth;
   console.log(auth);
   console.log(formData);
   request({
