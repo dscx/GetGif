@@ -39,8 +39,7 @@ angular.module('gifApp')
   $scope.loadPopular = function(){
     $scope.images = [];
     $http.get('/popular').success(function(results){
-      for (var j = 0; j < 10; j++) {
-        //make this work with imgur too
+      for (var j = 0; j < 8; j++) {
         var rando = Math.floor(Math.random() * results.giphy.length); 
            $scope.images.push(results.giphy[rando]);
            console.log(results.giphy);

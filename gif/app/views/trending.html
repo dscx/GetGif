@@ -5,12 +5,17 @@
       <img class="img-thumbnail" id="imgFormat" src={{image}}>
     </a>
 
-    <div>
-      <img ng-repeat="image in sampleImages" class="img-thumbnail" id="preview" src={{image}}>
-    </div>
+    
+      <a ng-click="thisTrend(trend)" ng-repeat="(key, val) in sampleImageText" id="preview" ng-style="{'background-image':'url({{val}})'}">
+      </a>
+   
 
-  <div class="panel-heading">
+  <!-- <div class="panel-heading">
       <span ng-repeat="(key, value) in trends"><button type="button" ng-click="thisTrend(key)">{{key}}</button><span ng-repeat-end></span>
       </span>
-  </div>
+  </div> -->
 </div>
+
+<!-- src={{image}} 
+ng-repeat="trend in sampleImageText" 
+-->    
