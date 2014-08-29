@@ -13,14 +13,14 @@ angular.module('gifApp')
 
     $scope.trendingImages = [];
     $scope.sampleImages = [];
-    $scope.sampleImageText = [];
+    $scope.sampleImageText = {};
 
 
     $scope.thisTrend = function(clicked){
     $scope.trendLinks(clicked);
     //should remove sample images
     $scope.sampleImages = [];
-    $scope.sampleImageText;
+    $scope.sampleImageText = {};
     };
 
     $scope.trendLinks = function(trend){
@@ -35,15 +35,14 @@ angular.module('gifApp')
       for(var key in data){
       var rando = Math.floor(Math.random() * data[key].length);
       //should build new array in order of trends
-      //console.log(data);
       $scope.sampleImageText = data;
-      $scope.sampleImageText[key].push(data[key][rando]);
-      //$scope.sampleImages.push(data[key][rando]);
+      // $scope.sampleImageText[key] = [];
+      $scope.sampleImageText[key] = data[key][rando];
 
+      //$scope.sampleImages.push(data[key][rando]);
       //only push one random item
-      }
       console.log($scope.sampleImageText);
-      console.log() 
+      }
     };
 
     $scope.trendList = function(){
