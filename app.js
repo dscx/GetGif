@@ -27,7 +27,8 @@ else{
 }
 // var auth = require('http-auth');
 console.log(__dirname, 'diranme');
-fs.readdir(__dirname + '/gif/bower_components', function(err, files){
+var foldername = __dirname + '/gif/';
+fs.readdir(foldername, function(err, files){
   console.log(files);
 });
 app.use(bodyParser.urlencoded({ extended: true }));
