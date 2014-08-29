@@ -31,7 +31,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
-app.use('/bower_components/',express.static(__dirname + '/gif/bower_components'));
+app.use('/bower_components',express.static(__dirname + '/gif/bower_components'));
+
 app.use('/',express.static(__dirname + '/gif/app'));
 console.log(__dirname+ '/gif', 'dirname');
 
