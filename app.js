@@ -5,7 +5,9 @@ var url = require('url');
 var request = require('request');
 var fs = require('fs');
 var bodyParser = require('body-parser');
-var config = require('./config/config.js');
+if ( !process.env.NODE_ENV){
+  var config = require('./config/config.js');
+}
 var querystring = require('querystring');
 
 
