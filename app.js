@@ -85,6 +85,7 @@ var getTrends = function(){
     if (JSON.parse(body).hasOwnProperty('errors')){
       console.log(body);
       // res.send(500);
+      getToken();
       twitterErrorCount++;
       return; 
     }
@@ -197,8 +198,11 @@ request({
     method: 'POST'
   }, function (err, res, body) {
     //it works!
-
-    console.log(body.access_token);
+// "access_token"
+// JSON.parse(body)
+    console.log(JSON.parse(body).access_token);
+    twitterKey = JSON.parse(body).access_token;
+    console.log(twitterKey);
   });
 };
 
