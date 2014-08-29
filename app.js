@@ -17,7 +17,7 @@ var trendStop;
 var trendsObject = {};
 var app = express();
 var trends = [];
-var twitterKey = config.twitterKey || process.env.TWITTER_KEY;
+var twitterKey = process.env.TWITTER_KEY || config.twitterKey;
 // var auth = require('http-auth');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -123,7 +123,7 @@ var getTrends = function(){
         var objectKey = trends[k];
 
         searchTerm = searchTerm.join('');
-        
+
         getTrendGifs(searchTerm, function (){
           twitterResponse = parseGiphyObject(trendsObject);
         }); 
@@ -176,7 +176,7 @@ var getToken = function(){
 
   var formData = querystring.stringify(form);
   var contentLength = formData.length;
-  var auth = config.basicAuth || process.env.BASIC_AUTH;
+  var auth = process.env.BASIC_AUTH || config.basicAuth;
   console.log(auth);
   console.log(formData);
   request({
